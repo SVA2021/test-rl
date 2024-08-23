@@ -1,1 +1,33 @@
-<p>header works!</p>
+<header class="header">
+  <div class="avatar">
+    <tui-avatar src="@tui.user" />
+    <div class="avatar_name">
+      {{ user?.username }}
+    </div>
+    <tui-chip appearance="accent"> It's you </tui-chip>
+  </div>
+  <div class="buttons">
+
+    <button
+      appearance="flat"
+      iconStart="@tui.settings"
+      size="m"
+      tuiIconButton
+      [style.border-radius.%]="100"
+      (click)="openSettings()"
+    >
+      Settings
+    </button>
+
+    <button
+      appearance="flat"
+      iconStart="@tui.log-out"
+      size="m"
+      tuiIconButton
+      [style.border-radius.%]="100"
+      (click)="logout()"
+    >
+      Log out
+    </button>
+  </div>
+</header>
