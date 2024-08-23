@@ -1,1 +1,17 @@
-<p>profile works!</p>
+<div class="profile-wrapper">
+  <h1 class="tui-text_h1">Your profile</h1>
+
+  @if (!!user) {
+    <p><b class="tui-space_right-2">Username:</b>{{ user.username }}</p>
+    <p><b class="tui-space_right-2">Password:</b> {{ user.password }}</p>
+    <p><b class="tui-space_right-2">ID:</b> {{ user.id }}</p>
+    <div class="form-submit tui-space_vertical-4">
+      <button appearance="primary" tuiButton routerLink="/">Back to chats</button>
+    </div>
+  } @else {
+    <p class="error tui-space_vertical-4">Something went wrong...</p>
+    <div class="form-submit tui-space_vertical-4">
+      <button appearance="primary" tuiButton routerLink="/login">Back to login</button>
+    </div>
+  }
+</div>
