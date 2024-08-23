@@ -28,6 +28,6 @@ export class HeaderComponent implements OnInit {
   }
 
   openSettings() {
-    this.router.navigate(['/profile']).then();
+    this.router.navigate(['/user']).then();
   }
 }
