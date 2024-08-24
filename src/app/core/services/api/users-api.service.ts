@@ -22,6 +22,10 @@ export class UsersApiService {
     return this.httpClient.get<User[]>('@api/users', { params: { ...body } }).pipe(map((users) => users?.[0] || null));
   }
 
+  getUserChannels(user_id: string) {
+    return this.httpClient.get('@api/user-channel', { params: { user_id } });
+  }
+
   private getFullUsers() {
     return this.httpClient.get<User[]>('@api/users');
   }
