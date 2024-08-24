@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ChatUser, User, UserLoginReq } from '@core/models/models';
+import { ChatUser, User, UserChannel, UserLoginReq } from '@core/models/models';
 import { map, Observable } from 'rxjs';
 import { getChatUsersFromUsers } from '@core/helpers/helpers';
 
@@ -10,6 +10,7 @@ import { getChatUsersFromUsers } from '@core/helpers/helpers';
 export class UsersApiService {
   private readonly httpClient = inject(HttpClient);
 
+  // side effect только для скрытия паролей пользователей
   getUsers(): Observable<ChatUser[]> {
     return this.getFullUsers().pipe(map((users) => getChatUsersFromUsers(users)));
   }
@@ -23,7 +24,7 @@ export class UsersApiService {
   }
 
   getUserChannels(user_id: string) {
-    return this.httpClient.get('@api/user-channel', { params: { user_id } });
+    return this.httpClient.get<UserChannel[]>('@api/user-channel', { params: { user_id } });
   }
 
   private getFullUsers() {

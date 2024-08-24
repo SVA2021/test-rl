@@ -1,6 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChatChannel, Message, UserChannel } from '@core/models/models';
+import { map } from 'rxjs';
+import { getChannels } from '@core/helpers/helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -17,18 +19,21 @@ export class ChannelsApiService {
   }
 
   getChannelMessages(channel_id: string) {
-    return this.httpClient.get('@api/messages', { params: { channel_id } });
+    return this.httpClient.get<Message[]>('@api/messages', { params: { channel_id } });
   }
 
   postMessageToChannel(message: Message) {
-    return this.httpClient.post('@api/messages', message);
+    return this.httpClient.post<Message>('@api/messages', message);
   }
 
+  // side effect этот обычно выполняется на бэке
   getChannelUsers(channel_id: string) {
-    return this.httpClient.get('@api/user-channel', { params: { channel_id } });
+    return this.httpClient
+      .get<UserChannel[]>('@api/user-channel', { params: { channel_id } })
+      .pipe(map((userChannels) => getChannels(userChannels)));
   }
 
   addUserToChannel(body: UserChannel) {
-    return this.httpClient.post('@api/user-channel', body);
+    return this.httpClient.post<UserChannel>('@api/user-channel', body);
   }
 }
