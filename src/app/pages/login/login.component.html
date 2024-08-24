@@ -4,11 +4,11 @@
   <form class="form-wrapper" [formGroup]="loginForm">
     <label tuiLabel class="tui-space_bottom-4">
       Enter a name
-      <tui-input formControlName="name" tuiTextfieldSize="m"  [tuiTextfieldLabelOutside]="true" >
+      <tui-input formControlName="username" tuiTextfieldSize="m"  [tuiTextfieldLabelOutside]="true" >
         <input placeholder="Put your name here" tuiTextfieldLegacy />
       </tui-input>
 
-      <tui-error formControlName="name" [error]="[] | tuiFieldError | async" />
+      <tui-error formControlName="username" [error]="[] | tuiFieldError | async" />
     </label>
 
     <label tuiLabel class="tui-space_bottom-4">

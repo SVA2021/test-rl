@@ -1,5 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ChatUser, User, UserLoginReq } from '@core/models/models';
+import { map, Observable } from 'rxjs';
+import { getChatUsersFromUsers } from '@core/helpers/helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +10,19 @@ import { HttpClient } from '@angular/common/http';
 export class UsersApiService {
   private readonly httpClient = inject(HttpClient);
 
-  getUsers() {
-    return this.httpClient.get('@api/users');
+  getUsers(): Observable<ChatUser[]> {
+    return this.getFullUsers().pipe(map((users) => getChatUsersFromUsers(users)));
+  }
+
+  addUser(user: User) {
+    return this.httpClient.post<User>('@api/users', user);
+  }
+
+  getUser(body: UserLoginReq): Observable<User | null> {
+    return this.httpClient.get<User[]>('@api/users', { params: { ...body } }).pipe(map((users) => users?.[0] || null));
+  }
+
+  private getFullUsers() {
+    return this.httpClient.get<User[]>('@api/users');
   }
 }

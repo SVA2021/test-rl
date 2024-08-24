@@ -1,8 +1,11 @@
-export interface User {
+export interface ChatUser {
   id: string; //uuid
   username: string;
-  password: string;
   is_online: boolean;
+}
+
+export interface User extends ChatUser {
+  password: string;
 }
 
 export interface ChatChannel {
@@ -20,4 +23,9 @@ export interface Message {
 export interface UserChannel {
   user_id: string; //uuid
   channel_id: string; //uuid
+}
+
+export interface UserLoginReq {
+  username: string;
+  password: string;
 }
