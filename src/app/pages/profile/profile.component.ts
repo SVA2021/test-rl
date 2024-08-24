@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { User } from '../../core/models/models';
+import { User } from '@core/models/models';
 import { TuiButton } from '@taiga-ui/core';
 import { RouterLink } from '@angular/router';
 

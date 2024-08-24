@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { TuiAvatar, TuiChip } from "@taiga-ui/kit";
-import { User } from "../../core/models/models";
-import { AuthService } from "../../core/services/auth.service";
+import { User } from "@core/models/models";
+import { AuthService } from "@core/services/auth.service";
 import { TuiButton } from "@taiga-ui/core";
 import { Router } from "@angular/router";
 
