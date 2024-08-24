@@ -29,3 +29,8 @@ export interface UserLoginReq {
   username: string;
   password: string;
 }
+
+export interface ChannelDetailed extends ChatChannel {
+  messages: Message[];
+  users: string[];
+}

@@ -4,6 +4,7 @@ import { UsersApiService } from "@core/services/api/users-api.service";
 import { ChannelsApiService } from "@core/services/api/channels-api.service";
 import { Store } from "@ngrx/store";
 import { UsersActions } from "@store/users/users.actions";
+import { ChannelsActions } from "@store/channels/channels.actions";
 
 @Component({
   selector: 'app-main',
@@ -19,7 +20,7 @@ export class MainComponent implements OnInit {
   private readonly store = inject(Store);
 
   ngOnInit() {
-    this.channelsApiService.getChannels().subscribe(console.log);
     this.store.dispatch(UsersActions.fetchUsers());
+    this.store.dispatch(ChannelsActions.fetchChannels());
   }
 }
