@@ -7,7 +7,8 @@ import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { baseUrlInterceptor } from "@core/interceptors/base-url.interceptor";
+import { baseUrlInterceptor } from '@core/interceptors/base-url.interceptor';
+import { errorInterceptor } from '@core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,6 @@ export const appConfig: ApplicationConfig = {
     NG_EVENT_PLUGINS,
     provideStore(),
     provideEffects(),
-    provideHttpClient(withInterceptors([baseUrlInterceptor])),
+    provideHttpClient(withInterceptors([baseUrlInterceptor, errorInterceptor])),
   ],
 };
