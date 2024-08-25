@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChannelsListComponent } from './channels-list.component';
+import { provideStore } from "@ngrx/store";
+import { provideHttpClient } from "@angular/common/http";
 
 describe('ChannelsListComponent', () => {
   let component: ChannelsListComponent;
@@ -8,7 +10,8 @@ describe('ChannelsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChannelsListComponent]
+      imports: [ChannelsListComponent],
+      providers: [provideStore(), provideHttpClient()],
     })
     .compileComponents();
 

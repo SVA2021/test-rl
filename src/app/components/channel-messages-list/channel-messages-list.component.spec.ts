@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChannelMessagesListComponent } from './channel-messages-list.component';
+import { provideStore } from "@ngrx/store";
+import { provideHttpClient } from "@angular/common/http";
 
 describe('ChannelMessagesListComponent', () => {
   let component: ChannelMessagesListComponent;
@@ -8,7 +10,8 @@ describe('ChannelMessagesListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChannelMessagesListComponent]
+      imports: [ChannelMessagesListComponent],
+      providers: [provideStore(), provideHttpClient()],
     })
     .compileComponents();
 

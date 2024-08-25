@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChannelUsersListComponent } from './channel-users-list.component';
+import { provideStore } from '@ngrx/store';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ChannelUsersListComponent', () => {
   let component: ChannelUsersListComponent;
@@ -8,9 +10,9 @@ describe('ChannelUsersListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChannelUsersListComponent]
-    })
-    .compileComponents();
+      imports: [ChannelUsersListComponent],
+      providers: [provideStore(), provideHttpClient()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ChannelUsersListComponent);
     component = fixture.componentInstance;

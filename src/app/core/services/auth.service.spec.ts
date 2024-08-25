@@ -27,4 +27,20 @@ describe('AuthService', () => {
     });
     expect(service.isAuthenticated()).toBe(true);
   });
+
+  it('should not be authenticated', () => {
+    service.setUser(null);
+    expect(service.isAuthenticated()).toBe(false);
+  });
+
+  it('should not be authenticated', () => {
+    service.setUser({
+      id: '123',
+      username: 'test',
+      password: 'test',
+      is_online: false
+    });
+    service.logout();
+    expect(service.isAuthenticated()).toBe(false);
+  });
 });
