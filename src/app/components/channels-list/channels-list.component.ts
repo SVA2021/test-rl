@@ -117,6 +117,7 @@ export class ChannelsListComponent implements OnInit, OnDestroy {
     };
     this.channelsApiService.addUserToChannel(body).subscribe((channel) => {
       this.store.dispatch(UserChannelsActions.addUserChannel({ channel }));
+      this.newChannelControl.setValue(null);
     });
   }
 }
