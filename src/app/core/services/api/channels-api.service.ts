@@ -18,6 +18,10 @@ export class ChannelsApiService {
     return this.httpClient.post<ChatChannel>('@api/channels', channel);
   }
 
+  getFullMessages() {
+    return this.httpClient.get<Message[]>('@api/messages');
+  }
+
   getChannelMessages(channel_id: string) {
     return this.httpClient.get<Message[]>('@api/messages', { params: { channel_id } });
   }
