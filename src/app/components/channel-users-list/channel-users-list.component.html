@@ -1,0 +1,62 @@
+<div class="users-wrapper">
+  <h3 class="tui-text_h3">{{ 'users' | uppercase }}</h3>
+  <div class="users-list" *ngIf="activeChannelUsers$ | async as users; else loader">
+    @for (user of users; track user.id) {
+      <div class="user-item tui-space_bottom-4">
+        <tui-avatar [appearance]="user.is_online ? 'primary' : 'accent'" src="@tui.user" size="m" />
+        <span class="user-name">
+          {{ user.username | titlecase}}
+        </span>
+      </div>
+    } @empty {
+      <p class="empty">No users yet, add one</p>
+    }
+  </div>
+    <div class="users-btn">
+      <button size="m" tuiButton type="button" (click)="showAddUserDialog(dialogTemplate)">Add user</button>
+    </div>
+</div>
+
+<ng-template #dialogTemplate let-observer>
+  <h4 class="tui-text_h4">Select user to add</h4>
+  <ng-container *ngIf="(nonActiveChannelUsers$ | async)?.length && activeUser; else emptyUsers">
+    <tui-select
+      *tuiLet="nonActiveChannelUsers$ | async as freeUsers"
+      [formControl]="newUserControl"
+      [valueContent]="freeUsers ? stringify(freeUsers) : null"
+      [tuiTextfieldLabelOutside]="true"
+    >
+      Select user
+      <ng-template tuiDataList>
+        <tui-data-list>
+          <button *ngFor="let item of freeUsers" tuiOption [value]="item.id">
+            {{ item.name }}
+          </button>
+        </tui-data-list>
+      </ng-template>
+    </tui-select>
+    <div class="dialog-buttons tui-space_4">
+      <button
+        appearance="primary"
+        size="m"
+        tuiButton
+        type="button"
+        [disabled]="!newUserControl.value"
+        (click)="addUser();observer.complete()"
+      >
+        Add channel
+      </button>
+      <button appearance="accent" size="m" tuiButton type="button" (click)="observer.complete()">Cancel</button>
+    </div>
+  </ng-container>
+  <ng-template #emptyUsers>
+    <p class="empty tui-space_4">No any users available</p>
+    <div class="dialog-buttons tui-space_4">
+      <button appearance="accent" size="m" tuiButton type="button" (click)="observer.complete()">Cancel</button>
+    </div>
+  </ng-template>
+</ng-template>
+
+<ng-template #loader>
+  <tui-loader size="m"></tui-loader>
+</ng-template>

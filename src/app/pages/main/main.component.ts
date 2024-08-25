@@ -6,11 +6,12 @@ import { Store } from "@ngrx/store";
 import { UsersActions } from "@store/users/users.actions";
 import { ChannelsActions } from "@store/channels/channels.actions";
 import { ChannelsListComponent } from "@components/channels-list/channels-list.component";
+import { ChannelUsersListComponent } from "@components/channel-users-list/channel-users-list.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [HeaderComponent, ChannelsListComponent],
+  imports: [HeaderComponent, ChannelsListComponent, ChannelUsersListComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
