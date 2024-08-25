@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ChatUser, User, UserChannel, UserLoginReq } from '@core/models/models';
+import { ChatUser, User, UserLoginReq } from '@core/models/models';
 import { map, Observable } from 'rxjs';
 import { getChatUsersFromUsers } from '@core/helpers/helpers';
 
@@ -21,10 +21,6 @@ export class UsersApiService {
 
   getUser(body: UserLoginReq): Observable<User | null> {
     return this.httpClient.get<User[]>('@api/users', { params: { ...body } }).pipe(map((users) => users?.[0] || null));
-  }
-
-  getUserChannels(user_id: string) {
-    return this.httpClient.get<UserChannel[]>('@api/user-channel', { params: { user_id } });
   }
 
   private getFullUsers() {
