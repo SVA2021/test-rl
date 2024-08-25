@@ -1,0 +1,24 @@
+@if (!!activeChannel) {
+  <h2 class="tui-text_h2">#{{ activeChannel.name }}</h2>
+  <div class="messages-wrapper tui-space_bottom-4">
+    @for (message of channelMessages$ | async; track message.id) {
+      <div class="message">
+        <b>{{ getUserName(message.from_user) }}</b
+        ><br />
+        <span class="tui-space_bottom-2">
+          {{ message.content }}
+        </span>
+      </div>
+    } @empty {
+      <p class="empty">No messages yet</p>
+    }
+    <div class="message-input">
+      <tui-input [formControl]="newMessageControl" tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true">
+        <input tuiTextfieldLegacy />
+      </tui-input>
+      <button appearance="primary" iconStart="@tui.arrow-right" size="m" tuiIconButton (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+} @else {
+  <div class="error">Select active channel to see messages</div>
+}
