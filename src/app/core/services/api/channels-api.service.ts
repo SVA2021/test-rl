@@ -26,14 +26,18 @@ export class ChannelsApiService {
     return this.httpClient.post<Message>('@api/messages', message);
   }
 
+  getFullUsersChannels() {
+    return this.httpClient.get<UserChannel[]>('@api/user_channels');
+  }
+
   // side effect этот обычно выполняется на бэке
   getChannelUsers(channel_id: string) {
     return this.httpClient
-      .get<UserChannel[]>('@api/user-channel', { params: { channel_id } })
+      .get<UserChannel[]>('@api/user_channels', { params: { channel_id } })
       .pipe(map((userChannels) => getChannels(userChannels)));
   }
 
   addUserToChannel(body: UserChannel) {
-    return this.httpClient.post<UserChannel>('@api/user-channel', body);
+    return this.httpClient.post<UserChannel>('@api/user_channels', body);
   }
 }
