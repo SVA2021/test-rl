@@ -1,0 +1,21 @@
+<div class="channels-wrapper">
+  <h3 class="tui-text_h3">{{ 'channels' | uppercase }}</h3>
+  <div class="channels-list" *ngIf="fullChannels$ | async as fullChannels; else loader">
+    @for (channel of fullChannels; track channel.id) {
+      <button
+        tuiButton
+        class="tui-space_bottom-4"
+        [appearance]="isChannelActive(channel) ? 'glass' : 'whiteblock'"
+        (click)="setActiveChannel(channel)"
+      >
+        #{{ channel.name }}
+      </button>
+    } @empty {
+      <p class="empty">No channels yet, add one</p>
+    }
+  </div>
+</div>
+
+<ng-template #loader>
+  <tui-loader size="m"></tui-loader>
+</ng-template>

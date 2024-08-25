@@ -5,11 +5,12 @@ import { ChannelsApiService } from "@core/services/api/channels-api.service";
 import { Store } from "@ngrx/store";
 import { UsersActions } from "@store/users/users.actions";
 import { ChannelsActions } from "@store/channels/channels.actions";
+import { ChannelsListComponent } from "@components/channels-list/channels-list.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, ChannelsListComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
