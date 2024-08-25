@@ -13,7 +13,13 @@
     }
   </div>
   <div class="users-btn">
-    <button size="m" tuiButton type="button" (click)="showAddUserDialog(dialogTemplate)" [disabled]="!(activeChannel$ | async)">
+    <button
+      size="m"
+      tuiButton
+      type="button"
+      (click)="showAddUserDialog(dialogTemplate)"
+      [disabled]="(activeChannel$ | async) === null"
+    >
       Add user
     </button>
   </div>
