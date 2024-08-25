@@ -1,0 +1,110 @@
+{
+  "channels": [
+    {
+      "id": "5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15",
+      "name": "test"
+    },
+    {
+      "id": "29b800d0-e59a-4155-b3b3-ec50447196e0",
+      "name": "test2"
+    },
+    {
+      "id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "name": "admin_channel"
+    },
+    {
+      "id": "d5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15",
+      "name": "user_channel"
+    }
+  ],
+  "messages": [
+    {
+      "id": "d5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15",
+      "from_user": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "channel_id": "5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15",
+      "content": "test message"
+    },
+    {
+      "id": "aa7ef203-8528-4a42-ba6d-56a22122527e",
+      "content": "test here",
+      "from_user": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "channel_id": "5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15"
+    },
+    {
+      "id": "a06d98fd-6cac-4795-a8ca-cf80011c9cdf",
+      "content": "add new message",
+      "from_user": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "channel_id": "5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15"
+    },
+    {
+      "id": "bfacdceb-32c4-475a-941a-7283cd757694",
+      "content": "new test",
+      "from_user": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "channel_id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15"
+    },
+    {
+      "id": "e89d233b-19ea-4028-a010-4a4fa1604230",
+      "content": "new message here",
+      "from_user": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "channel_id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15"
+    },
+    {
+      "id": "20807782-6b44-4037-84f8-f34e41bf76e5",
+      "content": "test2 channel test message",
+      "from_user": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "channel_id": "29b800d0-e59a-4155-b3b3-ec50447196e0"
+    }
+  ],
+  "user_channels": [
+    {
+      "channel_id": "5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15",
+      "user_id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "id": "914f"
+    },
+    {
+      "channel_id": "29b800d0-e59a-4155-b3b3-ec50447196e0",
+      "user_id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "id": "b41b"
+    },
+    {
+      "channel_id": "29b800d0-e59a-4155-b3b3-ec50447196e0",
+      "user_id": "d5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15",
+      "id": "20ce"
+    },
+    {
+      "id": "aeee",
+      "channel_id": "29b800d0-e59a-4155-b3b3-ec50447196e0",
+      "user_id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15"
+    },
+    {
+      "id": "3ce7",
+      "channel_id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "user_id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15"
+    },
+    {
+      "id": "f0a9",
+      "channel_id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "user_id": "d5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15"
+    }
+  ],
+  "users": [
+    {
+      "id": "8f6bd20f-fda1-4c5b-8bb3-2f7f4ba2dd15",
+      "username": "admin",
+      "password": "admin1234",
+      "is_online": true
+    },
+    {
+      "id": "d5d6e1e8-0e1a-4c5b-8bb3-2f7f4ba2dd15",
+      "username": "user",
+      "password": "user1234",
+      "is_online": false
+    },
+    {
+      "id": "29b800d0-e59a-4155-b3b3-ec50447196e0",
+      "username": "test",
+      "password": "test1234",
+      "is_online": true
+    }
+  ]
+}
