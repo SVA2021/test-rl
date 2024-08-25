@@ -1,14 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { User } from '@core/models/models';
 import { TuiButton } from '@taiga-ui/core';
 import { RouterLink } from '@angular/router';
-
-const testUser: User = {
-  id: 'uuid',
-  username: 'test',
-  password: 'test',
-  is_online: true,
-};
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,10 +12,8 @@ const testUser: User = {
   styleUrl: './profile.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileComponent implements OnInit {
-  user: User | null = null;
+export class ProfileComponent {
+  private readonly auth = inject(AuthService);
 
-  ngOnInit() {
-    this.user = testUser;
-  }
+  user: User | null = this.auth.getUser();
 }
