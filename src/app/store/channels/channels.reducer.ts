@@ -1,8 +1,8 @@
-import { ChannelDetailed } from "@core/models/models";
-import { createReducer, on } from "@ngrx/store";
-import { ChannelsActions } from "@store/channels/channels.actions";
+import { ChatChannel } from '@core/models/models';
+import { createReducer, on } from '@ngrx/store';
+import { ChannelsActions } from '@store/channels/channels.actions';
 
-export type ChannelsState = ChannelDetailed[];
+export type ChannelsState = ChatChannel[];
 export const initialState: ChannelsState = [];
 
 export const channelsReducer = createReducer(
@@ -11,4 +11,4 @@ export const channelsReducer = createReducer(
     return [...payload.channels];
   }),
   on(ChannelsActions.reset, () => initialState),
-)
+);

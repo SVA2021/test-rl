@@ -1,4 +1,4 @@
-import { ChannelDetailed, ChatChannel, ChatUser, User, UserChannel } from '@core/models/models';
+import { ChatUser, User, UserChannel } from '@core/models/models';
 
 function getChatUserFromUser(user: User): ChatUser {
   return {
@@ -18,13 +18,4 @@ export function getRandomBoolean(): boolean {
 
 export function getChannels(userChannels: UserChannel[]): string[] {
   return userChannels.map((userChannel) => userChannel.channel_id);
-}
-
-export function getChannelsDetailedFromChannels(channels: ChatChannel[]): ChannelDetailed[] {
-  return channels.map((channel) => ({
-    id: channel.id,
-    name: channel.name,
-    messages: [],
-    users: [],
-  }));
 }
