@@ -3,7 +3,7 @@ import { of, ReplaySubject, takeUntil } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiInputModule, TuiInputPasswordModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { TUI_CONFIRM, TUI_VALIDATION_ERRORS, TuiConfirmData, TuiFieldErrorPipe } from '@taiga-ui/kit';
-import { TuiButton, TuiDialogService, TuiError, TuiLabel } from '@taiga-ui/core';
+import { TuiAlertService, TuiButton, TuiDialogService, TuiError, TuiLabel } from '@taiga-ui/core';
 import { AsyncPipe } from '@angular/common';
 import { UsersApiService } from '@core/services/api/users-api.service';
 import { User, UserLoginReq } from '@core/models/models';
@@ -11,6 +11,7 @@ import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { getRandomBoolean } from '@core/helpers/helpers';
 import { UuidGeneratorService } from '@core/services/uuid-generator.service';
+import { LocalstorageService } from '@core/services/localstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -41,17 +42,20 @@ import { UuidGeneratorService } from '@core/services/uuid-generator.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnDestroy {
+  private readonly authService = inject(AuthService);
+  private readonly alerts = inject(TuiAlertService);
+  private readonly dialogs = inject(TuiDialogService);
+  private readonly router = inject(Router);
+  private readonly storageService = inject(LocalstorageService);
+  private readonly uuidService = inject(UuidGeneratorService);
+  private readonly usersApiService = inject(UsersApiService);
+
   readonly loginForm = new FormGroup({
     username: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]),
     password: new FormControl<string>('', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]),
   });
 
   private destroy$ = new ReplaySubject(1);
-  private readonly authService = inject(AuthService);
-  private readonly dialogs = inject(TuiDialogService);
-  private readonly router = inject(Router);
-  private readonly uuidService = inject(UuidGeneratorService);
-  private readonly usersApiService = inject(UsersApiService);
 
   ngOnDestroy() {
     this.destroy$.next(null);
@@ -61,6 +65,7 @@ export class LoginComponent implements OnDestroy {
   submitForm() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      this.alerts.open('Please, fill in all required fields!', { appearance: 'error' });
       return;
     }
     const body: UserLoginReq = {
@@ -112,6 +117,7 @@ export class LoginComponent implements OnDestroy {
 
   private login(user: User) {
     this.authService.setUser(user);
+    this.storageService.set('user', user);
     this.router.navigate(['/']).then();
   }
 }

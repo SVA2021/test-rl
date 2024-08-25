@@ -79,7 +79,7 @@ export class ChannelMessagesListComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    if (!this.newMessageControl.invalid) {
+    if (this.newMessageControl.invalid) {
       this.alerts.open('type message to send', { appearance: 'warn' }).pipe(takeUntil(this.destroy$)).subscribe();
       return;
     }

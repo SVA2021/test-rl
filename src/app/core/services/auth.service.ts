@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from "@core/models/models";
+import { User } from '@core/models/models';
+import { LocalstorageService } from '@core/services/localstorage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,8 @@ import { User } from "@core/models/models";
 export class AuthService {
   private user: User | null = null;
 
-  router = inject(Router);
+  private readonly router = inject(Router);
+  private readonly storageService = inject(LocalstorageService);
 
   getUser(): User | null {
     return this.user;
@@ -24,6 +26,7 @@ export class AuthService {
 
   logout() {
     this.user = null;
+    this.storageService.remove('user');
     this.router.navigate(['/login']).then();
   }
 }
