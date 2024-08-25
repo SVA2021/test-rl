@@ -10,5 +10,8 @@ export const userChannelsReducer = createReducer(
   on(UserChannelsActions.loadUserChannels, (state, payload) => {
     return [...payload.channels];
   }),
+  on(UserChannelsActions.addUserChannel, (state, payload) => {
+    return [...state, payload.channel];
+  }),
   on(UserChannelsActions.reset, () => initialState),
 );

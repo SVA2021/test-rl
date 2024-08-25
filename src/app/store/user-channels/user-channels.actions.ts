@@ -7,5 +7,6 @@ export const UserChannelsActions = createActionGroup({
     Reset: emptyProps(),
     'Fetch user channels': emptyProps(),
     'Load user channels': props<{ channels: UserChannel[] }>(),
+    'Add user channel': props<{ channel: UserChannel }>(),
   },
 });

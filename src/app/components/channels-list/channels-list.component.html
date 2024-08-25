@@ -1,7 +1,7 @@
 <div class="channels-wrapper">
   <h3 class="tui-text_h3">{{ 'channels' | uppercase }}</h3>
-  <div class="channels-list" *ngIf="fullChannels$ | async as fullChannels; else loader">
-    @for (channel of fullChannels; track channel.id) {
+  <div class="channels-list" *ngIf="activeUserChannels$ | async as channels; else loader">
+    @for (channel of channels; track channel.id) {
       <button
         tuiButton
         class="tui-space_bottom-4"
@@ -14,7 +14,50 @@
       <p class="empty">No channels yet, add one</p>
     }
   </div>
+  <div class="channels-btn">
+    <button size="m" tuiButton type="button" (click)="showAddChannelDialog(dialogTemplate)">Add channel</button>
+  </div>
 </div>
+
+<ng-template #dialogTemplate let-observer>
+  <h4 class="tui-text_h4">Select channel to add</h4>
+  <ng-container *ngIf="(nonActiveUserChannels$ | async)?.length && activeUser; else emptyChannels">
+    <tui-select
+      *tuiLet="nonActiveUserChannels$ | async as freeChannels"
+      [formControl]="newChannelControl"
+      [valueContent]="freeChannels ? stringify(freeChannels) : null"
+      [tuiTextfieldLabelOutside]="true"
+    >
+      Select channel
+      <ng-template tuiDataList>
+        <tui-data-list>
+          <button *ngFor="let item of freeChannels" tuiOption [value]="item.id">
+            {{ item.name }}
+          </button>
+        </tui-data-list>
+      </ng-template>
+    </tui-select>
+    <div class="dialog-buttons tui-space_4">
+      <button
+        appearance="primary"
+        size="m"
+        tuiButton
+        type="button"
+        [disabled]="!newChannelControl.value"
+        (click)="addChannel();observer.complete()"
+      >
+        Add channel
+      </button>
+      <button appearance="accent" size="m" tuiButton type="button" (click)="observer.complete()">Cancel</button>
+    </div>
+  </ng-container>
+  <ng-template #emptyChannels>
+    <p class="empty tui-space_4">No any channels available</p>
+    <div class="dialog-buttons tui-space_4">
+      <button appearance="accent" size="m" tuiButton type="button" (click)="observer.complete()">Cancel</button>
+    </div>
+  </ng-template>
+</ng-template>
 
 <ng-template #loader>
   <tui-loader size="m"></tui-loader>
