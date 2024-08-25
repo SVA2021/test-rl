@@ -1,5 +1,6 @@
-@if (!!activeChannel) {
-  <h2 class="tui-text_h2">#{{ activeChannel.name }}</h2>
+<ng-container *ngIf="activeChannel$ | async as channel; else error">
+  <!--@if (activeChannel$ | async) {-->
+  <h2 class="tui-text_h2">#{{ channel.name }}</h2>
   <div class="messages-wrapper tui-space_bottom-4">
     @for (message of channelMessages$ | async; track message.id) {
       <div class="message">
@@ -12,13 +13,19 @@
     } @empty {
       <p class="empty">No messages yet</p>
     }
-    <div class="message-input">
-      <tui-input [formControl]="newMessageControl" tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true">
-        <input tuiTextfieldLegacy />
-      </tui-input>
-      <button appearance="primary" iconStart="@tui.arrow-right" size="m" tuiIconButton (click)="sendMessage()">Send</button>
-    </div>
   </div>
-} @else {
+  <div class="message-input-wrapper">
+    <tui-input class="message-input" [formControl]="newMessageControl" tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true">
+      <input tuiTextfieldLegacy />
+    </tui-input>
+    <button appearance="primary" iconStart="@tui.arrow-right" size="m" tuiIconButton (click)="sendMessage()">
+      Send
+    </button>
+  </div>
+</ng-container>
+<!--} @else {-->
+<!--  <div class="error">Select active channel to see messages</div>-->
+<!--}-->
+<ng-template #error>
   <div class="error">Select active channel to see messages</div>
-}
+</ng-template>

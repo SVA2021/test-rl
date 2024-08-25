@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 import { AuthService } from '@core/services/auth.service';
 import { ActiveDataService } from '@core/services/active-data.service';
 import { ChannelsApiService } from '@core/services/api/channels-api.service';
-import { TuiAlertService, TuiButton, TuiDialogService } from '@taiga-ui/core';
-import { ReplaySubject, takeUntil } from 'rxjs';
+import { TuiAlertService, TuiButton } from '@taiga-ui/core';
+import { Observable, of, ReplaySubject, switchMap, takeUntil } from 'rxjs';
 import { ChatChannel, ChatUser, Message, User } from '@core/models/models';
 import { MessagesActions } from '@store/messages/messages.actions';
 import { selectMessagesByChannelId } from '@store/messages/messages.selectors';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { UsersActions } from '@store/users/users.actions';
 import { selectUsers } from '@store/users/users.selectors';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -25,6 +25,7 @@ import { UuidGeneratorService } from '@core/services/uuid-generator.service';
     TuiInputModule,
     TuiTextfieldControllerModule,
     TuiButton,
+    NgIf,
   ],
   templateUrl: './channel-messages-list.component.html',
   styleUrl: './channel-messages-list.component.less',
@@ -37,22 +38,24 @@ export class ChannelMessagesListComponent implements OnInit, OnDestroy {
   private readonly channelsApiService = inject(ChannelsApiService);
   private readonly uuidGeneratorService = inject(UuidGeneratorService);
   private readonly alerts = inject(TuiAlertService);
-  private readonly dialogs = inject(TuiDialogService);
   private readonly destroy$ = new ReplaySubject(1);
 
-  activeChannel: ChatChannel | null = null;
+  activeChannel$ = this.activeDataService.getActiveChannel().pipe(takeUntil(this.destroy$));
+  private activeChannel: ChatChannel | null = null;
   private activeUser: User | null = this.authService.getUser();
   private users: ChatUser[] = [];
 
-  channelMessages$ = this.store
-    .select(selectMessagesByChannelId(this.activeChannel?.id))
-    .pipe(takeUntil(this.destroy$));
-
+  channelMessages$: Observable<Message[]> = of([]);
   newMessageControl = new FormControl('', [Validators.minLength(1)]);
 
   ngOnInit(): void {
     this.store.dispatch(MessagesActions.fetchMessages());
     this.store.dispatch(UsersActions.fetchUsers());
+
+    this.channelMessages$ = this.activeChannel$.pipe(
+      switchMap((channel) => this.store.select(selectMessagesByChannelId(channel?.id))),
+      takeUntil(this.destroy$),
+    );
 
     this.store
       .select(selectUsers)
@@ -61,12 +64,9 @@ export class ChannelMessagesListComponent implements OnInit, OnDestroy {
         this.users = users;
       });
 
-    this.activeDataService
-      .getActiveChannel()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((channel) => {
-        this.activeChannel = channel;
-      });
+    this.activeChannel$.subscribe((channel) => {
+      this.activeChannel = channel;
+    });
   }
 
   ngOnDestroy(): void {
