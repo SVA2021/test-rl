@@ -8,7 +8,7 @@ import { Observable, of, ReplaySubject, switchMap, takeUntil } from 'rxjs';
 import { ChatChannel, ChatUser, Message, User } from '@core/models/models';
 import { MessagesActions } from '@store/messages/messages.actions';
 import { selectMessagesByChannelId } from '@store/messages/messages.selectors';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf, TitleCasePipe } from '@angular/common';
 import { UsersActions } from '@store/users/users.actions';
 import { selectUsers } from '@store/users/users.selectors';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -26,6 +26,7 @@ import { UuidGeneratorService } from '@core/services/uuid-generator.service';
     TuiTextfieldControllerModule,
     TuiButton,
     NgIf,
+    TitleCasePipe,
   ],
   templateUrl: './channel-messages-list.component.html',
   styleUrl: './channel-messages-list.component.less',
